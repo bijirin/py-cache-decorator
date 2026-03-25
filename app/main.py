@@ -2,8 +2,9 @@ from typing import Callable
 
 
 def cache(func: Callable) -> Callable:
-    cache = {}    
-    def inner(*args):        
+    cache = {}
+
+    def inner(*args) -> any:
         if args in cache:
             print("Getting from cache")
         else:
