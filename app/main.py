@@ -2,13 +2,14 @@ from typing import Callable
 
 
 def cache(func: Callable) -> Callable:
-    cache = {}
+    cache_storage = {}
 
-    def inner(*args) -> any:
-        if args in cache:
+    def inner(*args, **kwargs) -> any:
+        key = (args, tuple(sorted(kwargs.items())))
+        if key in cache_storage:
             print("Getting from cache")
         else:
             print("Calculating new result")
-            cache[args] = func(*args)
-        return cache[args]
+            cache_storage[key] = func(*args, **kwargs)
+        return cache_storage[key]
     return inner
